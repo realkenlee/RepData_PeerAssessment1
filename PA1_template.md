@@ -44,11 +44,10 @@ dim(data)
 ```
 
 ```r
-# import and turn data into data.table
+# importing dpylr, maybe useful for some data minpulation
 library(dplyr)
 ```
 ## What is mean total number of steps taken per day?
-**ANSWER** Mean is 10,770 steps and median is 10,760.
 
 Calculate total number of steps taken each day, ignoring NA values:
 
@@ -91,7 +90,7 @@ summary(dailytotal$total)
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##      41    8841   10760   10770   13290   21190
 ```
-**ANSWER** *Mean is 10,770 steps and median is 10,760.*
+**ANSWER** *Mean is 10,770 steps and median is 10,760 for total steps taken each day*
 
 ## What is the average daily activity pattern?
 Calculate average number of steps taken per interval, across all days
@@ -125,10 +124,10 @@ with(dailyactivity, dailyactivity[which(mean == max(mean)),])
 ## 1      835 206.1698
 ```
 
-**ANSWER** *Interval 835 contains the maximum number of steps*
+**ANSWER** *Interval 835 contains the maximum number of steps.*
 
 ## Imputing missing values
-There are 2304 rows with NA out of 17568 rows. The only column containing NA is "steps"
+There are 2304 rows with NA out of 17568 rows. The only column containing NA is "steps".
 
 ```r
 sum(!complete.cases(data))
@@ -178,7 +177,7 @@ medianbyinterval <- data %>%
         summarise(median = median(steps))
 ```
 
-Now, we assign the NA with the imputed values. First, we merge the median table and assign steps based on a if condition. We will use mapply for this step. The new data table is called imputedtbl:
+Now, we assign the NA with the imputed values. We merge the median table and assign steps based on a if condition. We will use mapply for this step. The new data table is called *data.new*:
 
 ```r
 mergedtbl <- merge(data, medianbyinterval, by = "interval")
@@ -201,7 +200,7 @@ hist(dailytotal.new$total, breaks = 30, xlab = NULL, main = "New")
 
 ![](figure/unnamed-chunk-13-1.png) 
 
-It turns out, the imputation has shifted the data to the lower end. Now, we will look at the mean and median to see if there is any difference:
+It turns out, the imputation added values in the low 1000 range. One observes a boost in the 2nd column. Now, we will look at the mean and median to see if there is any difference:
 
 ```r
 print("Original data")
@@ -248,7 +247,7 @@ legend("topright", legend = "mean", pch = 16, col = 2)
 ```
 
 ![](figure/unnamed-chunk-15-1.png) 
-
+**Strategy** *I decided to imput using median steps for each interval, across all days that have values.*
 ## Are there differences in activity patterns between weekdays and weekends?
 
 First, we created a new variable called weekend in the data table. A helper function is created to help with this.
