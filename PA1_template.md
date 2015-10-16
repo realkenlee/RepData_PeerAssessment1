@@ -275,4 +275,4 @@ xyplot(mean ~ interval | weekend, mean, type = "l", layout = c(1,2), xlab = "Int
 
 ![](figure/unnamed-chunk-17-1.png) 
 
-**ANSWER** *The data indicates there are more the subject wakes up earlier and peak activity is more drastic during weekdays. During weekend, subject stays up later compared to weekdays.*
+**ANSWER** *The data indicates the subject wakes up earlier and peak activity is more drastic during weekdays. During weekend, subject stays up later compared to weekdays.*
